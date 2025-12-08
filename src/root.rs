@@ -26,13 +26,17 @@ impl WidgetRef for Root {
     fn render_ref(&self, area: Rect, buf: &mut Buffer) {
         let chunks = Layout::default()
             .direction(Direction::Vertical)
-            .constraints([Constraint::Length(6)])
+            .constraints([Constraint::Length(7)])
             .flex(Flex::Center)
             .split(area);
 
         let parts = Layout::default()
             .direction(Direction::Vertical)
-            .constraints([Constraint::Length(3), Constraint::Length(3)])
+            .constraints([
+                Constraint::Length(3),
+                Constraint::Length(3),
+                Constraint::Length(1),
+            ])
             .split(chunks[0]);
 
         let mut i = 0;

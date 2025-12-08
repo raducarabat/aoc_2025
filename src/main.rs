@@ -24,8 +24,13 @@ fn main() -> Result<()> {
 
 fn run(mut terminal: DefaultTerminal) -> Result<()> {
     let mut root = Root::new();
-    root.add_child(Box::new(Logo::default()));
-
+    let version = Line::from(vec![Span::styled(
+        "v.0.0.1",
+        Style::default().fg(Color::DarkGray),
+    )]);
+    root.add_child(Box::new(
+        Paragraph::new(version).alignment(Alignment::Center),
+    ));
     loop {
         terminal.draw(|frame| {
             render(frame, &root);
