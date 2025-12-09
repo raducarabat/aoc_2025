@@ -6,20 +6,15 @@ use ratatui::{
     widgets::{Paragraph, Widget, WidgetRef},
 };
 
+use crate::types::EventHandler;
+
 pub struct Logo {
     logo_left: [&'static str; 3],
     logo_right: [&'static str; 3],
 }
 
 impl Logo {
-    pub fn new(left: [&'static str; 3], right: [&'static str; 3]) -> Self {
-        Self {
-            logo_left: left,
-            logo_right: right,
-        }
-    }
-
-    pub fn default() -> Self {
+    pub fn new() -> Self {
         Self {
             logo_left: ["█▀▀█ █▀▀█ █▀▀▀", "█▄▄█ █░░█ █░░░", "▀  ▀ ▀▀▀▀ ▀▀▀▀"],
             logo_right: ["▀▀▀█ █▀▀▀", "█▀▀▀ ▀▀▀█", "▀▀▀▀ ▀▀▀▀"],
@@ -39,8 +34,20 @@ impl WidgetRef for Logo {
             ]));
         }
 
+        let version = Line::from(vec![Span::styled(
+            "v.0.0.1",
+            Style::default().fg(ratatui::style::Color::DarkGray),
+        )]);
+        lines.push(version);
+
         Paragraph::new(lines)
             .alignment(Alignment::Center)
             .render(area, buf);
+    }
+}
+
+impl EventHandler for Logo {
+    fn handle_event(&mut self, _key: ratatui::crossterm::event::KeyCode) {
+        //no-op
     }
 }
